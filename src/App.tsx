@@ -1,34 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import { JobData } from "./mock";
 import Header from "./components/ui/Header";
 import Stats from "./components/Stats";
 import Charts from "./components/Charts";
-import { Data } from "./types";
+import { useDataStore } from "./store";
 
 function App() {
-  const [data, setData] = useState<Data[]>([]);
-
-  const initialiseData = () => {
+  const saveCharts = useDataStore((state) => state.saveCharts);
+  const initialiseChartsData = () => {
     const savedData = localStorage.getItem("saved");
-    if (!savedData) {
-      localStorage.setItem("jobs_data", JSON.stringify(JobData));
-      return JobData;
+    if (savedData) {
+      saveCharts(JSON.parse(savedData));
     }
-
-    return JSON.parse(savedData);
   };
 
   useEffect(() => {
-    const data = initialiseData();
-    setData(data);
+    initialiseChartsData();
   }, []);
 
   return (
     <main className="container mx-auto">
       <Header />
       <Stats />
-      <Charts data={data} />
+      <Charts />
     </main>
   );
 }

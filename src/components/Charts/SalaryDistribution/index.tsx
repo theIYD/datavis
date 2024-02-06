@@ -1,32 +1,15 @@
-import { ChartProps } from "../../../types";
+import { ChartKeys, useDataStore } from "../../../store";
 import UIChart from "../../ui/Chart";
 
-export default function SalaryDistribution({ data }: ChartProps) {
-  const countryStats: Record<
-    string,
-    { totalSalary: number; employeeCount: number }
-  > = {};
-  data.forEach((entry) => {
-    const country = entry.employee_residence;
-    countryStats[country] = countryStats[country] || {
-      totalSalary: 0,
-      employeeCount: 0,
-    };
-    countryStats[country].totalSalary += entry.salary_in_usd;
-    countryStats[country].employeeCount += 1;
-  });
-
-  const averageSalariesByCountry: Record<string, number> = {};
-  Object.keys(countryStats).forEach((country) => {
-    averageSalariesByCountry[country] = Math.round(
-      countryStats[country].totalSalary / countryStats[country].employeeCount
-    );
-  });
+export default function SalaryDistribution() {
+  const { salaries } = useDataStore(
+    (state) => state.charts[ChartKeys.SALARY_DISTRIBUTION]
+  ) as Record<string, number>;
 
   const props = {
     options: {
       xaxis: {
-        categories: Object.keys(averageSalariesByCountry),
+        categories: Object.keys(salaries),
         title: {
           text: "Country",
         },
@@ -43,7 +26,7 @@ export default function SalaryDistribution({ data }: ChartProps) {
     series: [
       {
         name: "Average Salary",
-        data: Object.values(averageSalariesByCountry),
+        data: Object.values(salaries),
       },
     ],
   };

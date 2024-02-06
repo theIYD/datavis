@@ -1,23 +1,15 @@
-import { ChartProps } from "../../../types";
+import { ChartKeys, useDataStore } from "../../../store";
 import UIChart from "../../ui/Chart";
 
-export default function SalaryWithCategoryChart({ data }: ChartProps) {
-  const jobCategories = [...new Set(data.map((entry) => entry.job_category))];
-  const averageSalaries = jobCategories.map((category) => {
-    const categorySalaries = data
-      .filter((entry) => entry.job_category === category)
-      .map((entry) => entry.salary_in_usd);
-
-    const averageSalary =
-      categorySalaries.reduce((acc, salary) => acc + salary, 0) /
-      categorySalaries.length;
-    return Math.floor(averageSalary);
-  });
+export default function SalaryWithCategoryChart() {
+  const { categories, salaries } = useDataStore(
+    (state) => state.charts[ChartKeys.SALARY_WITH_CATEGORY]
+  ) as { categories: string[]; salaries: number[] };
 
   const props = {
     options: {
       xaxis: {
-        categories: jobCategories,
+        categories: categories,
       },
       dataLabels: {
         enabled: false,
@@ -26,7 +18,7 @@ export default function SalaryWithCategoryChart({ data }: ChartProps) {
     series: [
       {
         name: "Avg Salary",
-        data: averageSalaries,
+        data: salaries,
       },
     ],
   };

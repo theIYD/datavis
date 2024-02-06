@@ -1,16 +1,14 @@
-import { ChartProps } from "../../../types";
+import { ChartKeys, useDataStore } from "../../../store";
 import UIChart from "../../ui/Chart";
 
-export default function SalaryYearTrend({ data }: ChartProps) {
-  const salaryTrendData = data.reduce<Record<number, number>>((acc, entry) => {
-    const year = entry.work_year;
-    acc[year] = Math.round((acc[year] || 0) + entry.salary_in_usd);
-    return acc;
-  }, {});
+export default function SalaryYearTrend() {
+  const { salaries } = useDataStore(
+    (state) => state.charts[ChartKeys.SALARY_TREND]
+  ) as { salaries: number[] };
 
   const trendChartOptions = {
     xaxis: {
-      categories: Object.keys(salaryTrendData),
+      categories: Object.keys(salaries),
       title: {
         text: "Year",
       },
@@ -25,7 +23,7 @@ export default function SalaryYearTrend({ data }: ChartProps) {
   const trendChartSeries = [
     {
       name: "Total Salary",
-      data: Object.values(salaryTrendData),
+      data: Object.values(salaries),
     },
   ];
 

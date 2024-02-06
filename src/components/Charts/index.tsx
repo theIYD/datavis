@@ -3,19 +3,18 @@ import CategoryDistribution from "./CategoryDistribution";
 import CompanySize from "./CompanySize";
 import SalaryDistribution from "./SalaryDistribution";
 import SalaryYearTrend from "./SalaryYearTrend";
-import { Data } from "../../types";
 
-export default function Charts({ data }: { data: Data[] }) {
+export default function Charts() {
   return (
     <div className="flex flex-col space-y-4 mt-6">
       <div className="flex space-x-4">
-        <SalaryWithCategoryChart data={data} />
-        <CategoryDistribution data={data} />
+        <SalaryWithCategoryChart />
+        <CategoryDistribution />
       </div>
       <div className="flex space-x-4">
-        <CompanySize data={data} />
-        <SalaryDistribution data={data} />
-        <SalaryYearTrend data={data} />
+        <CompanySize />
+        <SalaryDistribution />
+        <SalaryYearTrend />
       </div>
     </div>
   );
