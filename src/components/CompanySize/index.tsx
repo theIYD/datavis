@@ -1,9 +1,9 @@
-import { JobData } from "../../mock";
+import { ChartProps } from "../../types";
 import UIChart from "../ui/Chart";
 
-export default function CompanySize() {
+export default function CompanySize({ data }: ChartProps) {
   const companySizeCounts: Record<string, number> = {};
-  JobData.forEach((entry) => {
+  data.forEach((entry) => {
     companySizeCounts[entry.company_size] =
       (companySizeCounts[entry.company_size] || 0) + 1;
   });

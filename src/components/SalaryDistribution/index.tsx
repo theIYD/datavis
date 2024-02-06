@@ -1,12 +1,12 @@
-import { JobData } from "../../mock";
+import { ChartProps } from "../../types";
 import UIChart from "../ui/Chart";
 
-export default function SalaryDistribution() {
+export default function SalaryDistribution({ data }: ChartProps) {
   const countryStats: Record<
     string,
     { totalSalary: number; employeeCount: number }
   > = {};
-  JobData.forEach((entry) => {
+  data.forEach((entry) => {
     const country = entry.employee_residence;
     countryStats[country] = countryStats[country] || {
       totalSalary: 0,

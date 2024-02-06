@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import { JobData } from "./mock";
-import LineChart from "./components/LineChart";
+import Charts from "./components/Charts";
 
 function App() {
   const initialiseData = () => {
@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <p className="font-extrabold">Hello world</p>
-      <LineChart />
+      <Charts data={JobData} />
     </>
   );
 }

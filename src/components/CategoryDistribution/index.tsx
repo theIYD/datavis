@@ -1,9 +1,9 @@
-import { JobData } from "../../mock";
+import { ChartProps } from "../../types";
 import UIChart from "../ui/Chart";
 
-export default function CategoryDistribution() {
+export default function CategoryDistribution({ data }: ChartProps) {
   const jobCounts: Record<string, number> = {};
-  JobData.forEach((entry) => {
+  data.forEach((entry) => {
     jobCounts[entry.job_category] = (jobCounts[entry.job_category] || 0) + 1;
   });
 

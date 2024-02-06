@@ -1,14 +1,12 @@
-import { JobData } from "../../mock";
+import { ChartProps } from "../../types";
 import UIChart from "../ui/Chart";
 
-export default function SalaryWithCategoryChart() {
-  const jobCategories = [
-    ...new Set(JobData.map((entry) => entry.job_category)),
-  ];
+export default function SalaryWithCategoryChart({ data }: ChartProps) {
+  const jobCategories = [...new Set(data.map((entry) => entry.job_category))];
   const averageSalaries = jobCategories.map((category) => {
-    const categorySalaries = JobData.filter(
-      (entry) => entry.job_category === category
-    ).map((entry) => entry.salary_in_usd);
+    const categorySalaries = data
+      .filter((entry) => entry.job_category === category)
+      .map((entry) => entry.salary_in_usd);
 
     const averageSalary =
       categorySalaries.reduce((acc, salary) => acc + salary, 0) /
