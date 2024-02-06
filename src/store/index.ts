@@ -1,8 +1,35 @@
 import { create } from "zustand";
 import { JobData as data } from "../mock";
 
+type ChartData = {
+  categories?: string[] | Record<string, number>;
+  salaries?: number[] | Record<string, number> | Record<number, number>;
+  config?: {
+    options: object;
+    series: object;
+    type:
+      | "line"
+      | "area"
+      | "bar"
+      | "pie"
+      | "donut"
+      | "radialBar"
+      | "scatter"
+      | "bubble"
+      | "heatmap"
+      | "candlestick"
+      | "boxPlot"
+      | "radar"
+      | "polarArea"
+      | "rangeBar"
+      | "rangeArea"
+      | "treemap";
+  };
+  size?: Record<string, number>;
+};
+
 type Store = {
-  charts: Record<string, object>;
+  charts: Record<string, ChartData>;
   chartKeys: string[];
   saveChart: (chart: object, key: string) => void;
   saveCharts: (charts: Record<string, object>) => void;
@@ -28,18 +55,99 @@ export const useDataStore = create<Store>((set) => {
       salaryWithCategory: {
         categories: salaryWithCategoryData.jobCategories,
         salaries: salaryWithCategoryData.averageSalaries,
+        config: {
+          options: {
+            xaxis: {
+              categories: salaryWithCategoryData.jobCategories,
+            },
+            dataLabels: {
+              enabled: false,
+            },
+          },
+          series: [
+            {
+              name: "Avg Salary",
+              data: salaryWithCategoryData.averageSalaries,
+            },
+          ],
+          type: "bar",
+        },
       },
       categoryDistribution: {
         categories: categoryDistributionData,
+        config: {
+          options: {
+            labels: Object.keys(categoryDistributionData),
+          },
+          series: Object.values(categoryDistributionData) as number[],
+          type: "pie",
+        },
       },
       companySize: {
         size: companySize,
+        config: {
+          options: {
+            labels: Object.keys(companySize),
+            legend: {
+              show: true,
+            },
+          },
+          series: Object.values(companySize),
+          type: "donut",
+        },
       },
       salaryDistribution: {
         salaries: salaryDistribution,
+        config: {
+          options: {
+            xaxis: {
+              categories: Object.keys(salaryDistribution),
+              title: {
+                text: "Country",
+              },
+            },
+            yaxis: {
+              title: {
+                text: "Average Salary",
+              },
+            },
+            dataLabels: {
+              enabled: false,
+            },
+          },
+          series: [
+            {
+              name: "Average Salary",
+              data: Object.values(salaryDistribution),
+            },
+          ],
+          type: "bar",
+        },
       },
       salaryYearTrend: {
         salaries: salaryTrendData,
+        config: {
+          options: {
+            xaxis: {
+              categories: Object.keys(salaryTrendData),
+              title: {
+                text: "Year",
+              },
+            },
+            yaxis: {
+              title: {
+                text: "Total Salary",
+              },
+            },
+          },
+          series: [
+            {
+              name: "Total Salary",
+              data: Object.values(salaryTrendData),
+            },
+          ],
+          type: "line",
+        },
       },
     },
     chartKeys: [

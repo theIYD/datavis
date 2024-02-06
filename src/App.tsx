@@ -4,6 +4,7 @@ import Header from "./components/ui/Header";
 import { useDataStore } from "./store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./components";
+import EditChart from "./components/Charts/EditChart";
 
 function App() {
   const saveCharts = useDataStore((state) => state.saveCharts);
@@ -24,8 +25,8 @@ function App() {
       element: <Root />,
     },
     {
-      path: "/chart",
-      element: <p>Chart page</p>,
+      path: "/chart/:id",
+      element: <EditChart />,
     },
   ]);
 
