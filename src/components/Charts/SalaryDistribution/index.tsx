@@ -52,8 +52,8 @@ export default function SalaryDistribution({ data }: ChartProps) {
       options={props.options}
       series={props.series}
       type="bar"
-      height={350}
-      width={600}
+      // height={350}
+      // width={600}
     />
   );
 }

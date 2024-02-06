@@ -34,7 +34,7 @@ export default function SalaryYearTrend({ data }: ChartProps) {
       options={trendChartOptions}
       series={trendChartSeries}
       type="line"
-      height={350}
+      // height={350}
     />
   );
 }

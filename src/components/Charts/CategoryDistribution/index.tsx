@@ -14,12 +14,5 @@ export default function CategoryDistribution({ data }: ChartProps) {
     series: Object.values(jobCounts) as number[],
   };
 
-  return (
-    <UIChart
-      options={props.options}
-      series={props.series}
-      type="pie"
-      width={450}
-    />
-  );
+  return <UIChart options={props.options} series={props.series} type="pie" />;
 }

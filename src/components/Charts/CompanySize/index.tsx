@@ -23,7 +23,7 @@ export default function CompanySize({ data }: ChartProps) {
       options={props.options}
       series={props.series}
       type="donut"
-      height={400}
+      height={310}
     />
   );
 }

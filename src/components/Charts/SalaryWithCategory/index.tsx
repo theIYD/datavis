@@ -31,13 +31,5 @@ export default function SalaryWithCategoryChart({ data }: ChartProps) {
     ],
   };
 
-  return (
-    <UIChart
-      options={props.options}
-      series={props.series}
-      type="bar"
-      width={400}
-      height={300}
-    />
-  );
+  return <UIChart options={props.options} series={props.series} type="bar" />;
 }

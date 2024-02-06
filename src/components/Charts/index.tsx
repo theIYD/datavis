@@ -7,7 +7,7 @@ import { Data } from "../../types";
 
 export default function Charts({ data }: { data: Data[] }) {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 mt-6">
       <div className="flex space-x-4">
         <SalaryWithCategoryChart data={data} />
         <CategoryDistribution data={data} />
