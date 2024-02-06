@@ -1,5 +1,5 @@
-import { ChartProps } from "../../types";
-import UIChart from "../ui/Chart";
+import { ChartProps } from "../../../types";
+import UIChart from "../../ui/Chart";
 
 export default function CompanySize({ data }: ChartProps) {
   const companySizeCounts: Record<string, number> = {};

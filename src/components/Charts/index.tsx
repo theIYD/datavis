@@ -1,8 +1,8 @@
-import SalaryWithCategoryChart from "../SalaryWithCategory";
-import CategoryDistribution from "../CategoryDistribution";
-import CompanySize from "../CompanySize";
-import SalaryDistribution from "../SalaryDistribution";
-import SalaryYearTrend from "../SalaryYearTrend";
+import SalaryWithCategoryChart from "./SalaryWithCategory";
+import CategoryDistribution from "./CategoryDistribution";
+import CompanySize from "./CompanySize";
+import SalaryDistribution from "./SalaryDistribution";
+import SalaryYearTrend from "./SalaryYearTrend";
 import { Data } from "../../types";
 
 export default function Charts({ data }: { data: Data[] }) {

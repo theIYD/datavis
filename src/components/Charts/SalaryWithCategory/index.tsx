@@ -1,5 +1,5 @@
-import { ChartProps } from "../../types";
-import UIChart from "../ui/Chart";
+import { ChartProps } from "../../../types";
+import UIChart from "../../ui/Chart";
 
 export default function SalaryWithCategoryChart({ data }: ChartProps) {
   const jobCategories = [...new Set(data.map((entry) => entry.job_category))];

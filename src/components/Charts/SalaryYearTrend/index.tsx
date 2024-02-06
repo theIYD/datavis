@@ -1,5 +1,5 @@
-import { ChartProps } from "../../types";
-import UIChart from "../ui/Chart";
+import { ChartProps } from "../../../types";
+import UIChart from "../../ui/Chart";
 
 export default function SalaryYearTrend({ data }: ChartProps) {
   const salaryTrendData = data.reduce<Record<number, number>>((acc, entry) => {

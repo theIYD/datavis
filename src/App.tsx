@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import "./App.css";
 import { JobData } from "./mock";
-import Charts from "./components/Charts";
+import Header from "./components/ui/Header";
+import Stats from "./components/Stats";
 
 function App() {
   const initialiseData = () => {
@@ -13,10 +14,10 @@ function App() {
   }, []);
 
   return (
-    <>
-      <p className="font-extrabold">Hello world</p>
-      <Charts data={JobData} />
-    </>
+    <main className="container mx-auto">
+      <Header />
+      <Stats />
+    </main>
   );
 }
 

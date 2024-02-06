@@ -1,5 +1,5 @@
-import { ChartProps } from "../../types";
-import UIChart from "../ui/Chart";
+import { ChartProps } from "../../../types";
+import UIChart from "../../ui/Chart";
 
 export default function SalaryDistribution({ data }: ChartProps) {
   const countryStats: Record<
