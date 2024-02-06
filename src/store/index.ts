@@ -69,106 +69,110 @@ export const useDataStore = create<Store>((set) => {
   const salaryDistribution = defaultSalaryDistributionData();
   const salaryTrendData = defaultSalaryTrendData();
 
+  const savedData = localStorage.getItem("saved");
+
   return {
-    charts: {
-      salaryWithCategory: {
-        categories: salaryWithCategoryData.jobCategories,
-        salaries: salaryWithCategoryData.averageSalaries,
-        config: {
-          options: {
-            xaxis: {
-              categories: salaryWithCategoryData.jobCategories,
-            },
-            dataLabels: {
-              enabled: false,
-            },
-          },
-          series: [
-            {
-              name: "Avg Salary",
-              data: salaryWithCategoryData.averageSalaries,
-            },
-          ],
-          type: "bar",
-        },
-      },
-      categoryDistribution: {
-        categories: categoryDistributionData,
-        config: {
-          options: {
-            labels: Object.keys(categoryDistributionData),
-          },
-          series: Object.values(categoryDistributionData) as number[],
-          type: "pie",
-        },
-      },
-      companySize: {
-        size: companySize,
-        config: {
-          options: {
-            labels: Object.keys(companySize),
-            legend: {
-              show: true,
-            },
-          },
-          series: Object.values(companySize),
-          type: "donut",
-        },
-      },
-      salaryDistribution: {
-        salaries: salaryDistribution,
-        config: {
-          options: {
-            xaxis: {
-              categories: Object.keys(salaryDistribution),
-              title: {
-                text: "Country",
+    charts: savedData
+      ? JSON.parse(savedData)
+      : {
+          salaryWithCategory: {
+            categories: salaryWithCategoryData.jobCategories,
+            salaries: salaryWithCategoryData.averageSalaries,
+            config: {
+              options: {
+                xaxis: {
+                  categories: salaryWithCategoryData.jobCategories,
+                },
+                dataLabels: {
+                  enabled: false,
+                },
               },
-            },
-            yaxis: {
-              title: {
-                text: "Average Salary",
-              },
-            },
-            dataLabels: {
-              enabled: false,
-            },
-          },
-          series: [
-            {
-              name: "Average Salary",
-              data: Object.values(salaryDistribution),
-            },
-          ],
-          type: "bar",
-        },
-      },
-      salaryYearTrend: {
-        salaries: salaryTrendData,
-        config: {
-          options: {
-            xaxis: {
-              categories: Object.keys(salaryTrendData),
-              title: {
-                text: "Year",
-              },
-            },
-            yaxis: {
-              title: {
-                text: "Total Salary",
-              },
+              series: [
+                {
+                  name: "Avg Salary",
+                  data: salaryWithCategoryData.averageSalaries,
+                },
+              ],
+              type: "bar",
             },
           },
-          series: [
-            {
-              name: "Total Salary",
-              data: Object.values(salaryTrendData),
+          categoryDistribution: {
+            categories: categoryDistributionData,
+            config: {
+              options: {
+                labels: Object.keys(categoryDistributionData),
+              },
+              series: Object.values(categoryDistributionData) as number[],
+              type: "pie",
             },
-          ],
-          type: "line",
+          },
+          companySize: {
+            size: companySize,
+            config: {
+              options: {
+                labels: Object.keys(companySize),
+                legend: {
+                  show: true,
+                },
+              },
+              series: Object.values(companySize),
+              type: "donut",
+            },
+          },
+          salaryDistribution: {
+            salaries: salaryDistribution,
+            config: {
+              options: {
+                xaxis: {
+                  categories: Object.keys(salaryDistribution),
+                  title: {
+                    text: "Country",
+                  },
+                },
+                yaxis: {
+                  title: {
+                    text: "Average Salary",
+                  },
+                },
+                dataLabels: {
+                  enabled: false,
+                },
+              },
+              series: [
+                {
+                  name: "Average Salary",
+                  data: Object.values(salaryDistribution),
+                },
+              ],
+              type: "bar",
+            },
+          },
+          salaryYearTrend: {
+            salaries: salaryTrendData,
+            config: {
+              options: {
+                xaxis: {
+                  categories: Object.keys(salaryTrendData),
+                  title: {
+                    text: "Year",
+                  },
+                },
+                yaxis: {
+                  title: {
+                    text: "Total Salary",
+                  },
+                },
+              },
+              series: [
+                {
+                  name: "Total Salary",
+                  data: Object.values(salaryTrendData),
+                },
+              ],
+              type: "line",
+            },
+          },
         },
-      },
-    },
     chartKeys: [
       "salaryWithCategory",
       "categoryDistribution",
@@ -177,14 +181,17 @@ export const useDataStore = create<Store>((set) => {
       "salaryYearTrend",
     ],
     editChart: (chart: object, key: string) => {
-      console.log({ chart, key });
-      set((state) => ({
-        ...state,
-        charts: {
-          ...state.charts,
-          [key]: chart,
-        },
-      }));
+      set((state) => {
+        const updatedCharts = {
+          ...state,
+          charts: {
+            ...state.charts,
+            [key]: chart,
+          },
+        };
+        localStorage.setItem("saved", JSON.stringify(updatedCharts.charts));
+        return updatedCharts;
+      });
     },
     saveCharts: (charts: Record<string, object>) => {
       set((state) => ({

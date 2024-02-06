@@ -52,7 +52,7 @@ export default function Header() {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">🚀</a>
+        <a className="btn btn-neutral btn-sm">Create</a>
       </div>
     </div>
   );

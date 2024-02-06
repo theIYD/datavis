@@ -15,11 +15,10 @@ export default function Chart({
     }
   | Props) {
   const chart = useDataStore((state) => {
+    console.log("state", state);
     const chart = state.charts[chartKey];
     return chart;
   });
-
-  console.log("chart in edit", chart);
 
   const config = chart.config;
   const ChartComponent = (

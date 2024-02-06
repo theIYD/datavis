@@ -35,8 +35,10 @@ export default function EditChart() {
       },
     };
 
-    if (chartKey) editChart(updateChart, chartKey);
-    navigate("/");
+    if (chartKey) {
+      editChart(updateChart, chartKey);
+      navigate("/");
+    }
   };
 
   return (

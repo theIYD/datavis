@@ -6,7 +6,6 @@ export default function Charts() {
   const navigate = useNavigate();
 
   const handleOnChartClick = (chartKey: ChartKeys) => {
-    console.log("hello", chartKey);
     navigate(`/chart/${chartKey}`);
   };
 
