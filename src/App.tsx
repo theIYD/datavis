@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import "./App.css";
-import Header from "./components/ui/Header";
 import { useDataStore } from "./store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./components";
@@ -35,7 +34,6 @@ function App() {
 
   return (
     <main className="container mx-auto mb-10">
-      <Header />
       <RouterProvider router={router} />
     </main>
   );

@@ -1,7 +1,26 @@
 import { create } from "zustand";
 import { JobData as data } from "../mock";
 
-type ChartData = {
+export const ChartTypes = [
+  "line",
+  "area",
+  "bar",
+  "pie",
+  "donut",
+  "radialBar",
+  "scatter",
+  "bubble",
+  "heatmap",
+  "candlestick",
+  "boxPlot",
+  "radar",
+  "polarArea",
+  "rangeBar",
+  "rangeArea",
+  "treemap",
+];
+
+export type ChartData = {
   categories?: string[] | Record<string, number>;
   salaries?: number[] | Record<string, number> | Record<number, number>;
   config?: {
@@ -31,7 +50,7 @@ type ChartData = {
 type Store = {
   charts: Record<string, ChartData>;
   chartKeys: string[];
-  saveChart: (chart: object, key: string) => void;
+  editChart: (chart: object, key: string) => void;
   saveCharts: (charts: Record<string, object>) => void;
 };
 
@@ -157,14 +176,14 @@ export const useDataStore = create<Store>((set) => {
       "salaryDistribution",
       "salaryYearTrend",
     ],
-    saveChart: (chart: object, key: string) => {
+    editChart: (chart: object, key: string) => {
+      console.log({ chart, key });
       set((state) => ({
         ...state,
         charts: {
           ...state.charts,
           [key]: chart,
         },
-        chartKeys: [...state.chartKeys, key],
       }));
     },
     saveCharts: (charts: Record<string, object>) => {

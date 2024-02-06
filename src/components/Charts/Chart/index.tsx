@@ -1,3 +1,4 @@
+import { Props } from "react-apexcharts";
 import { useDataStore } from "../../../store";
 import UIChart from "../../ui/Chart";
 
@@ -5,15 +6,20 @@ export default function Chart({
   chartKey,
   onClick,
   mode,
-}: {
-  chartKey: string;
-  onClick?: React.MouseEventHandler;
-  mode: "edit" | "view";
-}) {
+  ...restProps
+}:
+  | {
+      chartKey: string;
+      onClick?: React.MouseEventHandler;
+      mode: "edit" | "view";
+    }
+  | Props) {
   const chart = useDataStore((state) => {
     const chart = state.charts[chartKey];
     return chart;
   });
+
+  console.log("chart in edit", chart);
 
   const config = chart.config;
   const ChartComponent = (
@@ -21,6 +27,7 @@ export default function Chart({
       options={config?.options}
       series={config?.series as ApexAxisChartSeries}
       type={config?.type}
+      {...restProps}
     />
   );
 
@@ -32,6 +39,6 @@ export default function Chart({
       {ChartComponent}
     </div>
   ) : (
-    ChartComponent
+    <div className="flex-1">{ChartComponent}</div>
   );
 }
