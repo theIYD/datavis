@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import "./App.css";
 import Header from "./components/ui/Header";
-import Stats from "./components/Stats";
-import Charts from "./components/Charts";
 import { useDataStore } from "./store";
-import Jobs from "./components/Jobs";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Root from "./components";
 
 function App() {
   const saveCharts = useDataStore((state) => state.saveCharts);
@@ -19,12 +18,21 @@ function App() {
     initialiseChartsData();
   }, []);
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+    },
+    {
+      path: "/chart",
+      element: <p>Chart page</p>,
+    },
+  ]);
+
   return (
     <main className="container mx-auto mb-10">
       <Header />
-      <Stats />
-      <Charts />
-      <Jobs />
+      <RouterProvider router={router} />
     </main>
   );
 }
