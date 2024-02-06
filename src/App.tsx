@@ -7,12 +7,15 @@ import Root from "./components";
 import EditChart from "./components/Charts/EditChart";
 
 function App() {
-  const saveCharts = useDataStore((state) => state.saveCharts);
+  const { saveCharts, charts } = useDataStore((state) => ({
+    saveCharts: state.saveCharts,
+    charts: state.charts,
+  }));
   const initialiseChartsData = () => {
     const savedData = localStorage.getItem("saved");
     if (savedData) {
       saveCharts(JSON.parse(savedData));
-    }
+    } else localStorage.setItem("saved", JSON.stringify(charts));
   };
 
   useEffect(() => {
